@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useMediaQuery } from '@mui/material';
 import * as d3 from "d3";
 import { addNodeOnDblClick } from "../Util/addNodeOnDblClick";
 import ExportButton from "./ExportButton";
@@ -12,14 +13,14 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
+  // height: 100%;
   gap: 10px;
 `;
 
 const Controls = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  flex-direction: ${props => props.type ? "column" : "row"};
+  justify-content: $center;
   align-items: center;
   gap: 10px;
 `;
@@ -38,6 +39,9 @@ const NewNodeInput = styled.input`
 `;
 
 const D3Chart = ({ width, height, strength }) => {
+
+  const isMobile = useMediaQuery('(max-width: 550px)');
+
   const d3Container = useRef(null);
   const [nodes, setNodes] = useState([
     { id: "M", reflexive: false },
@@ -292,7 +296,7 @@ const D3Chart = ({ width, height, strength }) => {
     <Container>
       <D3Header svgRef={d3Container} width={width} height={height} />
       <svg ref={d3Container} width="95%" height={height}></svg>
-      <Controls>
+      <Controls type={isMobile}>
         <ExportButton svgRef={d3Container} />
         <RemoveButton onClick={removeLastNode} />
         <NewNodeInput

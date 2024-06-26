@@ -10,8 +10,8 @@ const MainContainer = styled.div`
   width: 100vw;
   height: 100vh;
   flex-direction: ${props => props.fdir ?? "column"};
-  align-items: ${props => props.align ?? "start"};
-  justify-content: ${props => props.justify ?? "start"};
+  align-items: ${props => props.align ?? "center"};
+  justify-content: ${props => props.justify ?? "center"};
   gap: 10px;
 `;
 
