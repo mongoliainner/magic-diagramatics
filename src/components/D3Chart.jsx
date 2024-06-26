@@ -6,18 +6,20 @@ import D3Header from "./D3Header";
 import RemoveButton from "./RemoveButton";
 import styled from "styled-components";
 
-const DivColumn = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: start;
+  align-items: center;
+  width: 100%;
+  height: 100%;
   gap: 10px;
 `;
 
-const DivRow = styled.div`
+const Controls = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
   gap: 10px;
 `;
@@ -38,13 +40,13 @@ const NewNodeInput = styled.input`
 const D3Chart = ({ width, height, strength }) => {
   const d3Container = useRef(null);
   const [nodes, setNodes] = useState([
-    { id: "A", reflexive: false },
-    { id: "B", reflexive: false },
+    { id: "M", reflexive: false },
+    { id: "G", reflexive: false },
     { id: "C", reflexive: false },
   ]);
   const [links, setLinks] = useState([
-    { source: "A", target: "B", left: false, right: true },
-    { source: "B", target: "C", left: false, right: true },
+    { source: "M", target: "G", left: false, right: true },
+    { source: "G", target: "C", left: false, right: true },
   ]);
   const [lastNodeId, setLastNodeId] = useState("C".charCodeAt(0));
   const [mousedownNode, setMousedownNode] = useState(null);
@@ -287,10 +289,10 @@ const D3Chart = ({ width, height, strength }) => {
   };
 
   return (
-    <DivColumn>
+    <Container>
       <D3Header svgRef={d3Container} width={width} height={height} />
-      <svg ref={d3Container} width={width} height={height}></svg>
-      <DivRow>
+      <svg ref={d3Container} width="95%" height={height}></svg>
+      <Controls>
         <ExportButton svgRef={d3Container} />
         <RemoveButton onClick={removeLastNode} />
         <NewNodeInput
@@ -299,8 +301,8 @@ const D3Chart = ({ width, height, strength }) => {
           onKeyPress={handleKeyPress}
           placeholder="Add new node"
         />
-      </DivRow>
-    </DivColumn>
+      </Controls>
+    </Container>
   );
 };
 
