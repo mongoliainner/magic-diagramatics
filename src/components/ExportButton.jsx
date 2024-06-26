@@ -1,23 +1,23 @@
 import React from "react";
-import { toPng } from "html-to-image";
+import { toSvg } from "html-to-image";
 
 const ExportButton = ({ svgRef }) => {
-  const exportAsPng = () => {
+  const exportAsSvg = () => {
     if (svgRef.current) {
-      toPng(svgRef.current)
+      toSvg(svgRef.current)
         .then((dataUrl) => {
           const link = document.createElement("a");
-          link.download = "d3-chart.png";
+          link.download = "d3-chart.svg";
           link.href = dataUrl;
           link.click();
         })
         .catch((err) => {
-          console.error("Failed to export as PNG", err);
+          console.error("Failed to export as SVG", err);
         });
     }
   };
 
-  return <button onClick={exportAsPng}>Export as PNG</button>;
+  return <button onClick={exportAsSvg}>Export as SVG</button>;
 };
 
 export default ExportButton;
